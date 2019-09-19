@@ -1,15 +1,39 @@
 import functools
-
+import pdb;
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+def cycle_length(start_cyc):
+  cyc_len = 0
+  iter = start_cyc
+  while True:
+    cyc_len += 1
+    iter = iter.next
+    if iter == start_cyc:
+      return cyc_len
+
 
 def has_cycle(head):
-    # TODO - you fill in here.
-    return None
+  slow, fast = head, head
+  # Up until fast reaches the end of the list
+  while fast and fast.next and fast.next.next:
+    slow, fast = slow.next, fast.next.next
+    if slow is fast:
+      cycle_len = cycle_length(slow)
+      # Advance a pointer from the head to length C i.e. cycle length
+      cycle_iter = head
+      for _ in range(cycle_len):
+        cycle_iter = cycle_iter.next
 
+      # Now run two pointers: it and it + cycle_length together until they meet
+      new_iter = head
+      while new_iter != cycle_iter:
+        new_iter = new_iter.next
+        cycle_iter = cycle_iter.next
 
+      return new_iter
+  return None
 @enable_executor_hook
 def has_cycle_wrapper(executor, head, cycle_idx):
     cycle_length = 0
