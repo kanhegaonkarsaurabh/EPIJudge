@@ -6,8 +6,27 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def overlapping_lists(l0, l1):
-    # TODO - you fill in here.
+  cyc0, cyc1 = has_cycle(l0, l1)
+
+  # If both of the lists don't have cycle, use normal method to find overlap
+
+  if (not cyc0 and not cyc1):
+    return overlapping_no_cycle_lists(l0, l1)
+
+  # If only one of them has a cycle, then overlap is not possible
+  elif (not cyc0 or not cyc1):
     return None
+  # If both of them have a cycle, find the node at which both the cycles meet and return it
+  else:
+
+    iter = cyc0
+    while True:
+      iter = iter.next
+      if iter == cyc1:
+        return cyc0
+      if iter == cyc0:
+        return None
+  return None
 
 
 @enable_executor_hook

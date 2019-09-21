@@ -1,10 +1,27 @@
 from test_framework import generic_test
-
+from list_node import ListNode
 
 def even_odd_merge(L):
-    # TODO - you fill in here.
+  # Trivial edge cases
+  if not L:
     return None
+  
+  if not L.next:
+    return L
 
+  even_dummy = ListNode(0)
+  odd_dummy = ListNode(0)
+
+  heads, count = [even_dummy, odd_dummy], 0
+
+  while L:
+    heads[count].next = L
+    L = L.next
+    heads[count] = heads[count].next
+    count = count ^ 1
+  heads[1].next = None
+  heads[0].next = odd_dummy.next
+  return even_dummy.next
 
 if __name__ == '__main__':
     exit(
