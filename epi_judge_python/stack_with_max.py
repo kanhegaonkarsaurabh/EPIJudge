@@ -1,24 +1,45 @@
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
-
+import sys
 
 class Stack:
+    def __init__(self):
+      self.arr = []
+      self.max = - sys.maxsize - 1  # Smallest int value
+
     def empty(self):
-        # TODO - you fill in here.
-        return True
+      return len(self.arr) == 0
+
+    def top(self):
+      return self.arr[-1]
 
     def max(self):
         # TODO - you fill in here.
         return 0
 
     def pop(self):
-        # TODO - you fill in here.
-        return 0
+      if (self.empty()):
+        return -1 
+      
+      # calculate the new max if the curr max is popped off
+      if (self.top() == self.max):
+        val = self.arr.pop()
+        if (self.empty()):
+          self.max = - sys.maxsize - 1
+        else:
+          self.max = max(self.arr)
+        return val
+
+      return self.arr.pop()
 
     def push(self, x):
-        # TODO - you fill in here.
-        return
-
+      # calculate the max value before insertion
+      if (self.max < x):
+        self.max = x
+      
+      # append the x to array
+      self.arr.append(x)
+      return
 
 def stack_tester(ops):
     try:
