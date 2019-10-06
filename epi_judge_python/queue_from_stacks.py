@@ -5,10 +5,16 @@ class AQueue:
       self._s1 = []
       self._s2 = []
 
+    '''
+      Time: O(1)
+    '''
     def enqueue(self, x):
       self._s1.append(x)
       return
 
+    '''
+      Time: O(m) where m is the number of el in the queue as of now
+    '''
     def dequeue(self):
       if len(self._s2) == 0:
         while (len(self._s1) > 1):

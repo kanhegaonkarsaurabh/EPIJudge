@@ -1,10 +1,13 @@
 from test_framework import generic_test
 
+def inorder_traversal_helper(tree, order):
+  if (not tree):
+    return order
+
+  return inorder_traversal_helper(tree.left, order) + [tree.data] + inorder_traversal_helper(tree.right, order)
 
 def inorder_traversal(tree):
-    # TODO - you fill in here.
-    return []
-
+  return inorder_traversal_helper(tree, [])
 
 if __name__ == '__main__':
     exit(
