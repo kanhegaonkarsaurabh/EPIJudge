@@ -1,25 +1,32 @@
 from test_framework import generic_test
 
+class AQueue:
+    def __init__(self):
+      self._s1 = []
+      self._s2 = []
 
-class Queue:
     def enqueue(self, x):
-        # TODO - you fill in here.
-        return
+      self._s1.append(x)
+      return
 
     def dequeue(self):
-        # TODO - you fill in here.
-        return 0
-
+      if len(self._s2) == 0:
+        while (len(self._s1) > 1):
+          v = self._s1.pop()
+          self._s2.append(v)
+        return self._s1.pop()
+      else:
+        return self._s2.pop()
 
 def queue_tester(ops):
     from test_framework.test_failure import TestFailure
 
     try:
-        q = Queue()
+        q = AQueue()
 
         for (op, arg) in ops:
             if op == 'Queue':
-                q = Queue()
+                q = AQueue()
             elif op == 'enqueue':
                 q.enqueue(arg)
             elif op == 'dequeue':
